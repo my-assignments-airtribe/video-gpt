@@ -98,14 +98,22 @@ The Video GPT system uses a microservices architecture, with services for user m
 
 ### **Data Models**
 
+#### PostgreSQL Database
+ PostgreSQL is used for structured data storage, such as user information and video metadata. [ACID properties and relational data model]
 - **Users Table**
-  - Columns: `UserID`, `Username`, `Email`, `PasswordHash`, `DateCreated`
+  - **Columns:** `UserID`, `Username`, `Email`, `PasswordHash`, `CreatedAt`, `UpdatedAt`
+  - **Purpose:** Stores information about registered users. Each record represents a unique user with authentication details.
 - **Videos Table**
-  - Columns: `VideoID`, `URL`, `Title`, `Description`, `DateAdded`
+  - **Columns:** `VideoID`, `URL`, `Title`, `Description`, `CreatedAt`, `UpdatedAt`
+  - **Purpose:** Contains metadata about processed videos. The `UserID` column relates each video to a user.
+#### MongoDB Database
+ MongoDB's schema-less nature allows for the storage of complex, nested data without predefined structure, ideal for the dynamic and detailed results of video analysis.
 - **Queries Table**
-  - Columns: `QueryID`, `UserID`, `VideoID`, `QueryText`, `ResponseText`, `Timestamp`
+  - **Columns:** `QueryID`, `UserID`, `VideoID`, `QueryText`, `ResponseText`, `Timestamp`
+  - **Purpose:**  Logs user queries for analytics and debugging. This collection can easily accommodate variations in data structure, such as additional metadata about queries without requiring schema modifications.
 - **VideoAnalysis Table**
-  - Columns: `AnalysisID`, `VideoID`, `FrameData`, `TextData`, `ObjectData`, `Timestamp`
+  - **Columns:** `AnalysisID`, `VideoID`, `FrameData`, `TextData`, `ObjectData`, `Timestamp`
+  - **Purpose:** Stores analysis results for each video, which may include complex and varied structures of data extracted from videos, such as frame-by-frame analysis, detected objects, and transcribed text. The flexibility of MongoDB makes it well-suited for this type of data.
 
 ## **7. Key APIs**
 
@@ -154,6 +162,7 @@ Response: { "response": "The main topic is AI advancements." }
   - **Microservices Architecture:** Ensures scalability and modularity.
   - **Local Development with Docker:** Facilitates easy transition to cloud platforms and ensures consistency across environments.
   - **API-First Design:** Provides flexibility and ease of integration with other applications or services.
+  
 
 ### Scalability & Performance
 
