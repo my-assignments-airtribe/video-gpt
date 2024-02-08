@@ -92,24 +92,16 @@ The Video GPT system uses a microservices architecture, with services for user m
 
 ### **High-Level Architecture Diagram**
   
+  ```mermaid
+  graph TD
+    A[User Interface] -->|Submit Video URL & Query| B[Backend Server]
+    B -->|Video Processing| C[Video Processing Module]
+    C -->|Processed Video Data| D[AI & NLP Engine]
+    D -->|Query Processing| B
+    D -->|Response Generation| A
+    B -->|Data Storage| E[Database]
   ```
-  +-------------------+   +-------------------+   +-------------------+   +-------------------+
-  |                   |   |                   |   |                   |   |                   |
-  |   User Service   |   |  Video Service    |   |   AI & NLP Engine |   |   Query Service   |
-  |                   |   |                   |   |                   |   |                   |
-  +-------------------+   +-------------------+   +-------------------+   +-------------------+
-            |                     |                     |                     |
-            |                     |                     |                     |
-            +---------------------+---------------------+---------------------+
-                                        |
-                                        |
-                                        |
-                                +-------+-------+
-                                |               |
-                                |  Database     |
-                                |               |
-                                +---------------+
-  ```
+
 
 
 ## **6. Data Design**
