@@ -91,7 +91,8 @@ The Video GPT system uses a microservices architecture, with services for user m
 5. The response is sent back to the UI to be displayed to the user.
 
 ### **Flow Chart**
-  [Flow Chart](./flow-chart.png)
+  ![Flow Chart](./flow-chart.png)
+  
 
 ## **6. Data Design**
 
