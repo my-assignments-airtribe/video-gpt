@@ -40,7 +40,7 @@ This HLD covers the conceptual design of the system, including the architecture,
 
 The Video GPT system is designed to revolutionize how users interact with video content by enabling them to ask questions and receive information based on video analysis. The system will leverage advanced AI models to understand and generate responses to user queries, providing a seamless and interactive experience.
 
-### **Simple Diagram and Description**
+### **Components**
 
 - **User Interface (UI):** A web or mobile interface for user interactions, allowing users to submit video URLs and queries.
 - **Backend Server:** Handles API requests, manages user authentication, and orchestrates the video processing and query handling workflows.
@@ -92,7 +92,6 @@ The Video GPT system uses a microservices architecture, with services for user m
 
 ### **Flow Chart**
   ![Flow Chart](./flow-chart.png)
-  
 
 ## **6. Data Design**
 
