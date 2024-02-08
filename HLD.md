@@ -104,7 +104,7 @@ The Video GPT system uses a microservices architecture, with services for user m
   - **Columns:** `UserID`, `Username`, `Email`, `PasswordHash`, `CreatedAt`, `UpdatedAt`
   - **Purpose:** Stores information about registered users. Each record represents a unique user with authentication details.
 - **Videos Table**
-  - **Columns:** `VideoID`, `URL`, `Title`, `Description`, `CreatedAt`, `UpdatedAt`
+  - **Columns:** `VideoID`, `UserId`, `URL`, `Title`, `Description`, `CreatedAt`, `UpdatedAt`
   - **Purpose:** Contains metadata about processed videos. The `UserID` column relates each video to a user.
 #### MongoDB Database
  MongoDB's schema-less nature allows for the storage of complex, nested data without predefined structure, ideal for the dynamic and detailed results of video analysis.
