@@ -90,16 +90,25 @@ The Video GPT system uses a microservices architecture, with services for user m
 4. The AI & NLP engine receives processed video data and the user's query, performs analysis, and generates a response.
 5. The response is sent back to the UI to be displayed to the user.
 
-### **High-Level Architecture Diagram**
+### **Flow Chart**
   
   ```mermaid
   graph TD
-    A[User Interface] -->|Submit Video URL & Query| B[Backend Server]
-    B -->|Video Processing| C[Video Processing Module]
-    C -->|Processed Video Data| D[AI & NLP Engine]
-    D -->|Query Processing| B
-    D -->|Response Generation| A
-    B -->|Data Storage| E[Database]
+    A[Start] --> B[User accesses the UI]
+    B --> C[User inputs video URL]
+    C --> D[Video fetching process starts]
+    D --> E[Video is processed to extract frames, audio, etc.]
+    E -->|Video Content Analysis| F[AI Engine analyzes the video content]
+    B --> G[User submits a query regarding the video content]
+    G --> H[AI Engine processes the query]
+    F --> I[AI Engine matches the processed query with the video content analysis]
+    H --> I
+    I --> J[System generates a response to the user's query]
+    J --> K[Response is sent back to the UI]
+    K --> L[User receives the response]
+    L --> M[User provides feedback (optional)]
+    M --> N[Feedback is used to improve the AI & NLP Engine's performance]
+    N --> O[End]
   ```
 
 
