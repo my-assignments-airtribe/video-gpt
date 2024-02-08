@@ -26,7 +26,7 @@
 8. [Overall Approach](#overall-approach)
 9. [Security](#security)
 
-## **1. Introduction**
+## Introduction
 
 ### **Purpose**
 
@@ -36,7 +36,7 @@ The purpose of this document is to outline the high-level design for the Video G
 
 This HLD covers the conceptual design of the system, including the architecture, key components, database design, API endpoints, and the overall approach for implementation. It outlines both functional and non-functional requirements and provides initial estimations for project scope, resources, and timelines.
 
-## **2. System Overview**
+## System Overview
 
 The Video GPT system is designed to revolutionize how users interact with video content by enabling them to ask questions and receive information based on video analysis. The system will leverage advanced AI models to understand and generate responses to user queries, providing a seamless and interactive experience.
 
@@ -48,7 +48,7 @@ The Video GPT system is designed to revolutionize how users interact with video 
 - **AI & NLP Engine:** Analyzes the video content and processes user queries to generate relevant responses based on the video's context and content.
 - **Database:** Manages the storage of user data, video metadata, query logs, and analysis results, ensuring fast retrieval and secure storage.
 
-## **3. Functional Requirements**
+## Functional Requirements
 
 1. **Video Processing and Analysis:**
  - The system must be able to fetch videos from given URLs.
@@ -65,7 +65,7 @@ The Video GPT system is designed to revolutionize how users interact with video 
  - The system must store user data, including their queries and interaction history, securely.
  - Video metadata extracted from the analysis should be stored efficiently for quick retrieval in response to queries.
 
-## **4. Non-Functional Requirements**
+## Non-Functional Requirements
 
 1. **Performance:**
  - The system must provide timely responses to user queries, aiming for minimal latency in video processing and query response generation.
@@ -79,7 +79,7 @@ The Video GPT system is designed to revolutionize how users interact with video 
 4. **Usability:**
  - The user interface must be intuitive and user-friendly, allowing users to easily navigate and use the system without extensive training.
 
-## **5. Architecture Design**
+## Architecture Design
 
 The Video GPT system uses a microservices architecture, with services for user management, video processing, AI analysis, and query response generation. These components interact over a RESTful API, ensuring modularity and scalability.
 
@@ -93,7 +93,7 @@ The Video GPT system uses a microservices architecture, with services for user m
 ### **Flow Chart**
   ![Flow Chart](./flow-chart.png)
 
-## **6. Data Design**
+## Data Design
 
 ### **Data Models**
 
@@ -114,7 +114,7 @@ The Video GPT system uses a microservices architecture, with services for user m
   - **Columns:** `AnalysisID`, `VideoID`, `FrameData`, `TextData`, `ObjectData`, `Timestamp`
   - **Purpose:** Stores analysis results for each video, which may include complex and varied structures of data extracted from videos, such as frame-by-frame analysis, detected objects, and transcribed text. The flexibility of MongoDB makes it well-suited for this type of data.
 
-## **7. Key APIs**
+## Key APIs
 
 ### **User Management**
 ```jsx
@@ -146,7 +146,7 @@ Response: { "response": "The main topic is AI advancements." }
 ```
 
 
-## **8. Overall Approach**
+## Overall Approach
 
 ### Implementation Strategy
 
@@ -168,5 +168,5 @@ Response: { "response": "The main topic is AI advancements." }
 - Design the system to handle a high volume of concurrent users and queries.
 - Use efficient data storage and retrieval techniques to minimize response times.
 
-## **9. Security**
+## Security
 TBD
