@@ -90,27 +90,8 @@ The Video GPT system uses a microservices architecture, with services for user m
 4. The AI & NLP engine receives processed video data and the user's query, performs analysis, and generates a response.
 5. The response is sent back to the UI to be displayed to the user.
 
-### **High-Level Architecture Diagram**
-  
-  ```
-  +-------------------+   +-------------------+   +-------------------+   +-------------------+
-  |                   |   |                   |   |                   |   |                   |
-  |   User Service   |   |  Video Service    |   |   AI & NLP Engine |   |   Query Service   |
-  |                   |   |                   |   |                   |   |                   |
-  +-------------------+   +-------------------+   +-------------------+   +-------------------+
-            |                     |                     |                     |
-            |                     |                     |                     |
-            +---------------------+---------------------+---------------------+
-                                        |
-                                        |
-                                        |
-                                +-------+-------+
-                                |               |
-                                |  Database     |
-                                |               |
-                                +---------------+
-  ```
-
+### **Flow Chart**
+  [Flow Chart](./flow-chart.png)
 
 ## **6. Data Design**
 
