@@ -22,8 +22,9 @@
 4. Non-Functional Requirements
 5. Architecture Design
 6. Data Design
-7. Overall Approach
-8. Security
+7. Key APIs
+8. Overall Approach
+9. Security
 
 ## **1. Introduction**
 
@@ -124,7 +125,39 @@ The Video GPT system uses a microservices architecture, with services for user m
 - **VideoAnalysis Table**
   - Columns: `AnalysisID`, `VideoID`, `FrameData`, `TextData`, `ObjectData`, `Timestamp`
 
-## **7. Overall Approach**
+## **7. Key APIs**
+
+### **User Management**
+```jsx
+// Endpoint for user registration
+Endpoint: /user/register
+Method: POST
+Description: Registers a new user.
+Request: { "username": "user", "email": "user@example.com", "password": "password123" }
+Response: { "userId": "456", "status": "registered" }
+```
+### **Video Processing**
+```jsx
+// Endpoint for video upload
+Endpoint: /video/upload
+Method: POST
+Description: Uploads a video URL for processing.
+Request: { "url": "https://example.com/video.mp4" }
+Response: { "videoId": "123", "status": "processing" }
+```
+
+### **Query Handling**
+```jsx
+// Endpoint for submitting a query about a video
+Endpoint: /video/query
+Method: POST
+Description: Submits a query about a video.
+Request: { "videoId": "123", "query": "What is the main topic?" }
+Response: { "response": "The main topic is AI advancements." }
+```
+
+
+## **8. Overall Approach**
 
 ### Implementation Strategy
 
@@ -146,5 +179,5 @@ The Video GPT system uses a microservices architecture, with services for user m
 - Use efficient data storage and retrieval techniques to minimize response times.
 - Consider implementing caching mechanisms for frequently accessed data.
 
-## **8. Security**
+## **9. Security**
 TBD
