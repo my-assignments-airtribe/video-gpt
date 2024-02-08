@@ -159,7 +159,6 @@ Response: { "response": "The main topic is AI advancements." }
 
 - Design the system to handle a high volume of concurrent users and queries.
 - Use efficient data storage and retrieval techniques to minimize response times.
-- Consider implementing caching mechanisms for frequently accessed data.
 
 ## **9. Security**
 TBD
