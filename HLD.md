@@ -94,13 +94,14 @@ The Video GPT system uses a microservices architecture, with services for user m
 
 ### Workflow
 1. User inputs a video URL and submits a query through the UI.
-2. The backend server receives the request and forwards it to the video processing module.
-3. The video processing module fetches the video, processes it, and extracts relevant data.
-4. The AI & NLP engine receives processed video data and the user's query, performs analysis, and generates a response.
-5. The response is sent back to the UI to be displayed to the user.
+2. The backend server receives the request and adds it to a queue for video processing.
+3. The queueing system manages the processing of video jobs, ensuring efficient handling of video analysis.
+4. The video processing module fetches the video, processes it, and extracts relevant data.
+5. The AI & NLP engine receives processed video data and the user's query, performs analysis, and generates a response.
+6. The response is sent back to the UI to be displayed to the user.
 
 ### **Flow Chart**
-  ![Flow Chart](./flow-chart.png)
+  ![Flow Chart](./flow-chart-simplified.png)
 
 ## Data Design
 
