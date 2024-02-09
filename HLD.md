@@ -5,6 +5,8 @@
 | Version | Date       | Description of Changes              | Author(s)          |
 |---------|------------|-------------------------------------|--------------------|
 | 1.0.0   | 2024-02-04 | Initial creation of the HLD         | Ashrith Prakash    |
+|---------|------------|-------------------------------------|--------------------|
+| 1.0.1   | 2024-02-04 | Simplified to focus on speech extraction; added queuing | Ashrith Prakash    |
 
 ## **Document Information**
 
@@ -38,13 +40,21 @@ This HLD covers the conceptual design of the system, including the architecture,
 
 ## System Overview
 
-The Video GPT system is designed to revolutionize how users interact with video content by enabling them to ask questions and receive information based on video analysis. The system will leverage advanced AI models to understand and generate responses to user queries, providing a seamless and interactive experience.
+The Video GPT system is designed to revolutionize how users interact with video content by enabling them to ask questions and receive information based on video analysis. The system will leverage advanced AI models to understand and generate responses to user queries, providing a seamless and interactive experience. To accommodate slower processing times and ensure the backend remains responsive, we'll introduce a queue system to decouple video processing from the real-time handling of user queries. 
 
 ### **Components**
 
 - **User Interface (UI):** A web or mobile interface for user interactions, allowing users to submit video URLs and queries.
-- **Backend Server:** Handles API requests, manages user authentication, and orchestrates the video processing and query handling workflows.
-- **Video Processing Module:** Responsible for fetching videos from provided URLs, extracting frames, and preprocessing data for further analysis.
+- **Backend Server:** 
+  - Handles user registration, authentication, and account management.
+  - Receives video upload requests and user queries.
+  - For video uploads, the server enqueues video processing jobs, allowing for asynchronous processing.
+  - For user queries, the server checks if the requested video's speech data is available and processes the query accordingly.
+- **Queueing System:** 
+  - Manages video processing jobs, ensuring that video processing is handled efficiently without blocking user interactions.
+  - Provides status updates on video processing to users.
+- **Video Processing Module:** 
+  - Processes jobs from the queue, focusing on extracting speech from videos.
 - **AI & NLP Engine:** Analyzes the video content and processes user queries to generate relevant responses based on the video's context and content.
 - **Database:** Manages the storage of user data, video metadata, query logs, and analysis results, ensuring fast retrieval and secure storage.
 
@@ -52,7 +62,7 @@ The Video GPT system is designed to revolutionize how users interact with video 
 
 1. **Video Processing and Analysis:**
  - The system must be able to fetch videos from given URLs.
- - It should process and analyze video content to extract meaningful information, such as speech, text, objects, and scene changes.
+ - It should process and analyze video content to extract speech.
 2. **Query Processing:**
  - Users should be able to submit queries related to the video content.
  - The system must interpret these queries and provide relevant responses based on the video analysis.
@@ -110,9 +120,9 @@ The Video GPT system uses a microservices architecture, with services for user m
 - **Queries Table**
   - **Columns:** `QueryID`, `UserID`, `VideoID`, `QueryText`, `ResponseText`, `Timestamp`
   - **Purpose:**  Logs user queries for analytics and debugging. This collection can easily accommodate variations in data structure, such as additional metadata about queries without requiring schema modifications.
-- **VideoAnalysis Table**
-  - **Columns:** `AnalysisID`, `VideoID`, `FrameData`, `TextData`, `ObjectData`, `Timestamp`
-  - **Purpose:** Stores analysis results for each video, which may include complex and varied structures of data extracted from videos, such as frame-by-frame analysis, detected objects, and transcribed text. The flexibility of MongoDB makes it well-suited for this type of data.
+- **SpeechData Table**
+  - **Columns:** `AnalysisID`, `VideoID`, `TextData`, `Timestamps`, `Language`, `CreatedAt`, `UpdatedAt`
+  - **Purpose:** Stores extracted speech data from videos, linked to the Videos table in PostgreSQL for efficient query processing.
 
 ## Key APIs
 
@@ -134,6 +144,7 @@ Description: Uploads a video URL for processing.
 Request: { "url": "https://example.com/video.mp4" }
 Response: { "videoId": "123", "status": "processing" }
 ```
+The /video/upload endpoint triggers the enqueueing of a video for processing. The processing status updates and eventual availability of speech data are managed through the queue and processing module, with relevant status updates made accessible to users, if necessary.
 
 ### **Query Handling**
 ```jsx
@@ -154,6 +165,7 @@ Response: { "response": "The main topic is AI advancements." }
   - **Backend:**  Node.js/Express or any suitable backend framework
   - **Video Processing:** OpenCV, FFmpeg for video frame extraction and preprocessing.
   - **AI & NLP Engine:** TensorFlow, PyTorch for building custom models, or use pre-trained models like OpenAI's GPT for text processing.
+  - **Queueing System:** RabbitMQ or Kafka for managing asynchronous tasks and decoupling services.
   - **Database:** MongoDB for storing video metadata and analysis results; PostgreSQL for structured data like user information.
   - **Frontend:** React, chosen for its component-based architecture.
 
