@@ -5,7 +5,7 @@
 | Version | Date       | Description of Changes              | Author(s)          |
 |---------|------------|-------------------------------------|--------------------|
 | 1.0.0   | 2024-02-04 | Initial creation of the HLD         | Ashrith Prakash    |
-| 1.0.1   | 2024-02-04 | Simplified to focus on speech extraction; added queuing | Ashrith Prakash    |
+| 1.0.1   | 2024-02-09 | Simplified to focus on speech extraction; added queuing | Ashrith Prakash    |
 
 ## **Document Information**
 
