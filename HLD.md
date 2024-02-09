@@ -144,7 +144,7 @@ Description: Uploads a video URL for processing.
 Request: { "url": "https://example.com/video.mp4" }
 Response: { "videoId": "123", "status": "processing" }
 ```
-The /video/upload endpoint triggers the enqueueing of a video for processing. The processing status updates and eventual availability of speech data are managed through the queue and processing module, with relevant status updates made accessible to users, if necessary.
+The `/video/upload` endpoint triggers the enqueueing of a video for processing. The processing status updates and eventual availability of speech data are managed through the queue and processing module, with relevant status updates made accessible to users, if necessary.
 
 ### **Query Handling**
 ```jsx
