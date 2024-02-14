@@ -1,4 +1,4 @@
-// docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+// docker run --name postgress-user-db -e POSTGRES_PASSWORD=-p 5432:5432 -d postgres
 
 
 import express from 'express';
@@ -29,9 +29,9 @@ const pool = new Pool({
 });
 
 // Verify database connection
-// pool.connect()
-//   .then(() => console.log('Connected to database successfully.'))
-//   .catch((err) => console.error('Database connection failed. Error: ', err));
+pool.connect()
+  .then(() => console.log('Connected to database successfully.'))
+  .catch((err) => console.error('Database connection failed. Error: ', err));
 
 // Routes
 // app.use('/api/users', userRoutes);
