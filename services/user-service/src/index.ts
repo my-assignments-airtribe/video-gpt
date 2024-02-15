@@ -56,8 +56,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Start the Express server
-app.listen(PORT, () => {
-  console.log(`User Service running at http://localhost:${PORT}`);
+let server = app.listen(PORT, () => {
+  logger.info(`User Service running at http://localhost:${PORT}`);
 });
+
+const gracefulShutdown = () => {
+  logger.info('Starting graceful shutdown...');
+  server.close(() => {
+    logger.info('HTTP server closed.');
+    
+    pool.end(() => {
+      logger.info('Database connection closed.');
+      process.exit(0);
+    });
+  });
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
 
 export { pool };
