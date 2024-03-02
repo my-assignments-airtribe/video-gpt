@@ -2,10 +2,11 @@ import express from 'express';
 import type { Response, Request, Express, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Pool } from 'pg'; 
+import { Client } from 'pg'; 
 import userRoutes from './routes/user';
 import helmet from "helmet";
 import logger from './logger';
+import { errorHandler } from './utils/error-handler';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 // PostgreSQL pool connection setup
-const pool = new Pool({
+const pool = new Client({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -30,10 +31,11 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT || '5432'),
 });
 
-// Verify database connection
 pool.connect()
   .then(() => console.log('Connected to database successfully.'))
-  .catch((err) => console.error('Database connection failed. Error: ', err));
+  .catch((err) => {
+    console.error('Database connection failed. Error: ', err, JSON.stringify(err, null, 2), err.stack);
+  });
 
 // Routes
 app.use('/api/user', userRoutes);
@@ -54,6 +56,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   });
   next();
 });
+
+app.use(errorHandler);
 
 // Start the Express server
 let server = app.listen(PORT, () => {

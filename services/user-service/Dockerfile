@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # Copy package.json and bun.lockb into the working directory
 COPY package.json bun.lockb ./
 
+
+RUN apt-get update
+RUN apt-get install gcc make --yes
 # Install dependencies using Bun
 RUN bun install
 
