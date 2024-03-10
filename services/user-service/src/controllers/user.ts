@@ -15,6 +15,7 @@ export const registerUser = async (
 ) => {
   try {
     const { username, password, email } = req.body;
+
     
     // Validate request body against the registration schema
     const { error } = registrationSchema.validate(
@@ -25,11 +26,13 @@ export const registerUser = async (
       throw new ValidationError(error.details[0].message);
     }
 
+
     // Check if the username or email is already in use
     const existingUserQuery = await pool.query(
       'SELECT * FROM users WHERE username = $1 OR email = $2',
       [username, email]
     );
+
 
     if (existingUserQuery.rows.length > 0) {
       throw new UsernameTakenError("Username or email is already taken");

@@ -23,16 +23,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 // PostgreSQL pool connection setup
+
 const pool = new Client({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
+  password: 'password',
   port: parseInt(process.env.DB_PORT || '5432'),
 });
 
 pool.connect()
-  .then(() => console.log('Connected to database successfully.'))
+  .then(() => {
+    // create the users table if it doesn't exist
+    pool.query(
+      `CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );`
+    )
+      .then(() => {
+        logger.info('Database connection successful.');
+      })
+      .catch((err) => {
+        console.error('Error creating users table: ', err, JSON.stringify(err, null, 2), err.stack);
+      });
+  })
   .catch((err) => {
     console.error('Database connection failed. Error: ', err, JSON.stringify(err, null, 2), err.stack);
   });

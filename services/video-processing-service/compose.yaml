@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongopass
+      MONGO_INITDB_DATABASE: videoProcessing
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-network
+
+  app:
+    build: .
+    depends_on:
+      - mongodb
+    volumes:
+      - /Users/ashrith/Development/videogpt-416108-95c8a63eca76.json:/app/credentials.json
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /app/credentials.json
+      MONGODB_USERNAME: mongo
+      MONGODB_PASSWORD: mongopass
+      MONGODB_DB_NAME: videoProcessing
+      MONGODB_HOST: mongodb:27017
+      JWT_SECRET: A1GrnbmX%IagT089
+    ports:
+      - "4000:4000"
+    networks:
+      - app-network
+    command: npm start
+
+volumes:
+  mongodb-data:
+
+networks:
+  app-network:
