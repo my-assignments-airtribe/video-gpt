@@ -24,7 +24,6 @@ app.use(helmet());
 
 // PostgreSQL pool connection setup
 
-console.log('DB_USER:', process.env.DB_USER, 'DB_HOST:', process.env.DB_HOST, 'DB_NAME:', process.env.DB_NAME, 'DB_PASSWORD:', process.env.DB_PASSWORD, 'DB_PORT:', process.env.DB_PORT);
 const pool = new Client({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,

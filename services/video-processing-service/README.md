@@ -64,3 +64,13 @@ The Video Processing Service provides the following endpoints:
     "keywords": ["keyword1", "keyword2", "keyword3"]
   }
   ```
+
+  ## Docker
+
+  The Video Processing Service can also be run as a Docker container. 
+  Please update the `Dockerfile` and `compose.yml` files with the appropriate environment variables and volumes for your service account key file.
+  `- /Users/ashrith/Development/videogpt-416108-95c8a63eca76.json:/app/credentials.json` needs the `GOOGLE_APPLICATION_CREDENTIALS` to be updated with the path to your service account key file.
+  run:
+  ```bash
+  docker compose up --build
+  ```
