@@ -23,14 +23,16 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     return res.sendStatus(401); // Unauthorized
   }
 
-  jwt.verify(token, process.env.JWT_SECRET || '', (err, decoded) => {
+  jwt.verify(token, `${process.env.JWT_SECRET}`, (err, decoded) => {
+    console.log('decoded:', decoded);
     if (err) {
+      console.error('Error verifying token:', err);
       return res.sendStatus(403); // Forbidden
     }
 
     // Ensure decoded token matches our interface
     const payload = decoded as UserPayload;
-    if (!payload.userId || !payload.username) {
+    if (!payload.userId && !payload.username) {
       return res.sendStatus(403); // Forbidden, invalid token structure
     }
 

@@ -15,9 +15,14 @@ export const processVideoFromUrl = async (videoUrl: string): Promise<{ transcrip
   }
 
   const timestamp = Date.now();
-  const downloadedFilePath = await downloadVideo(videoUrl, path.join(tmpDir, `original-${timestamp}.mp4`));
-  const processedFilePath = path.join(tmpDir, `processed-${timestamp}.mp4`);
-  const audioOutputPath = path.join(tmpDir, `audio-${timestamp}.mp3`);
+  let processedFilePath = '';
+  let audioOutputPath = '';
+  const downloadedFilePath = await downloadVideo(videoUrl, path.join(tmpDir, `original-${timestamp}.mp4`)).then((res) => {
+    processedFilePath = path.join(tmpDir, `processed-${timestamp}.mp4`);
+    audioOutputPath = path.join(tmpDir, `audio-${timestamp}.mp3`);
+    return res;
+  });
+  
 
   try {
     await transcodeVideo(downloadedFilePath, processedFilePath);

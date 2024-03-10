@@ -5,8 +5,9 @@ import { processVideoFromUrl } from '../services/video';
 export const processVideoByUrl = async (req: Request, res: Response) => {
   const { videoUrl } = req.body;
   const userId = req.user?.userId;
-  if (!userId) {
-    return res.status(400).json({ message: 'User ID missing in request context' });
+  const username = req.user?.username;
+  if (!userId && !username) {
+    return res.status(400).json({ message: 'User missing in request context' });
   }
   if (!videoUrl) {
     return res.status(400).json({ message: 'Video URL is required.' });
